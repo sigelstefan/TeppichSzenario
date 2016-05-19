@@ -1,5 +1,5 @@
 package de.wim.smarthome;
 
-public enum Teppiche {
+public enum TeppichType {
 	GROSSER_TEPPICH, KLEINER_TEPPICH
 }
