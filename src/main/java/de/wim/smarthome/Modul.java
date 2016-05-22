@@ -10,7 +10,7 @@ public class Modul {
 		this.values[0] = values[0];
 		this.values[1] = values[1];
 	}
-	
+
 	public short[] getValues() {
 		return values;
 	}
@@ -18,6 +18,14 @@ public class Modul {
 	@Override
 	public String toString() {
 		return "ModulIdentifier [values=" + Arrays.toString(values) + "]";
+	}
+
+	public boolean isGleichesModul(Modul other) {
+		return Arrays.equals(this.getValues(), other.getValues());
+	}
+
+	public String getModulString() {
+		return "" + this.values[0] + this.values[1];
 	}
 
 }
