@@ -2,6 +2,9 @@ package de.wim.smarthome;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.wim.smarthome.teppich.Modul;
+import de.wim.smarthome.teppich.Teppich;
+
 public class Messwert {
 
 	private Teppich teppich; // die ersten 3 Werte

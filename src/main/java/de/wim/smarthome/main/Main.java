@@ -1,4 +1,4 @@
-package de.wim.smarthome;
+package de.wim.smarthome.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-public class Test {
+public class Main {
 
 	public static void main(String[] args) {
 		try {

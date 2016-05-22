@@ -1,4 +1,4 @@
-package de.wim.smarthome;
+package de.wim.smarthome.teppich;
 
 import java.util.Arrays;
 

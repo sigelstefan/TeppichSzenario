@@ -1,13 +1,16 @@
 package de.wim.smarthome;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.wim.smarthome.connectivity.LightState;
+import de.wim.smarthome.connectivity.OpenHabConnector;
+import de.wim.smarthome.teppich.TeppichType;
 
 public class MesswerteManager {
 
 	private static final int ANZAHL_MESSWERTE = 10;
+	private OpenHabConnector openHabConnector = new OpenHabConnector();
 
 	private List<Messwert> lastMesswerte = new ArrayList<>();
 
@@ -40,12 +43,12 @@ public class MesswerteManager {
 	private void checkForGrosserTeppich() {
 		if (isGrosserTeppichActive()) {
 			if (!isGrosserTeppichLightOn) {
-				System.out.println("set Licht grosser Teppich -> ON");
+				openHabConnector.setLight(OpenHabConnector.URL_LIGHT_GF_KITCHEN_TABLE, LightState.ON);
 				isGrosserTeppichLightOn = true;
 			}
 		} else {
 			if (isGrosserTeppichLightOn) {
-				System.out.println("set Licht grosser Teppich -> OFF");
+				openHabConnector.setLight(OpenHabConnector.URL_LIGHT_GF_KITCHEN_TABLE, LightState.OFF);
 				isGrosserTeppichLightOn = false;
 			}
 		}
@@ -54,18 +57,18 @@ public class MesswerteManager {
 	private void checkForKleinerTeppich() {
 		if (isKleinerTeppichActive()) {
 			if (!isKleinerTeppichLightOn) {
-				System.out.println("set Licht kleiner Teppich -> ON");
+				openHabConnector.setLight(OpenHabConnector.URL_LIGHT_GF_KITCHEN_CEILING, LightState.ON);
 				isKleinerTeppichLightOn = true;
 			}
 		} else {
 			if (isKleinerTeppichLightOn) {
-				System.out.println("set Licht kleiner Teppich -> OFF");
+				openHabConnector.setLight(OpenHabConnector.URL_LIGHT_GF_KITCHEN_CEILING, LightState.OFF);
 				isKleinerTeppichLightOn = false;
 			}
 		}
 	}
 
-	public boolean isKleinerTeppichActive() {
+	private boolean isKleinerTeppichActive() {
 		for (Messwert messwert : lastMesswerte) {
 			if (messwert.getTeppichIdentifier().getTeppichType() == TeppichType.KLEINER_TEPPICH) {
 				return true;
@@ -74,32 +77,12 @@ public class MesswerteManager {
 		return false;
 	}
 
-	public boolean isGrosserTeppichActive() {
+	private boolean isGrosserTeppichActive() {
 		for (Messwert messwert : lastMesswerte) {
 			if (messwert.getTeppichIdentifier().getTeppichType() == TeppichType.GROSSER_TEPPICH) {
 				return true;
 			}
 		}
 		return false;
-	}
-
-	public static void main(String[] args) {
-		int counter = 0;
-		MesswerteManager manager = new MesswerteManager();
-		String fileName = "D:\\dev\\uml_workspace\\TeppichSzenario\\raw_test_clean.txt";
-
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
-			String line;
-			while ((line = br.readLine()) != null) {
-				Messwert m = new Messwert(line);
-				System.out.println("add Messwert " + ++counter);
-				manager.addNewMesswert(m);
-				Thread.sleep(1000);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.wim.smarthome.teppich.TeppichType;
+
 public class TeppichTests {
 
 	@Test
